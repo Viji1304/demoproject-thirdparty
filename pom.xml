@@ -1,0 +1,143 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.aem.demoproject</groupId>
+  <artifactId>thirdparty</artifactId>
+  <version>0.0.1</version>
+  <packaging>bundle</packaging>
+
+  <name>Demo Project Third party Dependency</name>
+  <url>http://maven.apache.org</url>
+  <description>Demo Project Third party Dependency as OSGI bundle using maven-bundle-plugin</description>
+
+  <properties>
+    <aem.host>localhost</aem.host>
+	<aem.port>8400</aem.port>
+    <sling.user>admin</sling.user>
+	<sling.password>admin</sling.password>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>  
+
+  <distributionManagement>
+        <repository>
+            <uniqueVersion>false</uniqueVersion>
+            <id>myaemlearnings-releases</id>
+            <name>myaemlearnings Repository</name>
+            <url>http://localhost:8081/repository/myaemlearnings-releases/</url>
+            <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+            <uniqueVersion>true</uniqueVersion>
+            <id>myaemlearnings-snapshots</id>
+            <name>myaemlearnings Snapshots</name>
+            <url>http://localhost:8081/repository/myaemlearnings-snapshots/</url>
+            <layout>default</layout>
+        </snapshotRepository>
+    </distributionManagement>
+
+  <dependencies>
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>sns</artifactId>
+        <version>2.16.13</version>
+    </dependency>
+	<dependency>
+		<groupId>software.amazon.awssdk</groupId>
+		<artifactId>cognitoidentityprovider</artifactId>
+		<version>2.16.14</version>
+	</dependency> 
+    <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/sqs -->
+    <dependency>
+        <groupId>software.amazon.awssdk</groupId>
+        <artifactId>sqs</artifactId>
+        <version>2.16.29</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/s3 -->
+	<dependency>
+    	<groupId>software.amazon.awssdk</groupId>
+    	<artifactId>s3</artifactId>
+    	<version>2.15.42</version>    
+	</dependency>
+    <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+    <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>0.9.1</version>
+    </dependency>
+    <!-- Google Recaptcha -->
+    <dependency>
+        <groupId>com.google.cloud</groupId>
+        <artifactId>google-cloud-recaptchaenterprise</artifactId>
+        <version>1.0.10</version>
+	</dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
+    <dependency>
+        <groupId>org.apache.pdfbox</groupId>
+        <artifactId>pdfbox</artifactId>
+        <version>2.0.23</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.directory.api/api-ldap-client-api -->
+    <dependency>
+        <groupId>org.apache.directory.api</groupId>
+        <artifactId>api-ldap-client-api</artifactId>
+        <version>2.0.1</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.directory.api</groupId>
+        <artifactId>api-all</artifactId>
+        <version>2.0.0.AM3</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
+    <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-pool2</artifactId>
+        <version>2.8.1</version>
+    </dependency>  		
+  </dependencies>
+  
+  <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Import-Package>*;resolution:=optional</Import-Package>
+                        <Export-Package>software.amazon.awssdk.*,
+                        io.jsonwebtoken,
+                        com.google.recaptchaenterprise.v1.*,
+                        com.google.auth.*, 
+                        com.google.api.gax.*,
+                        com.google.cloud.recaptchaenterprise.v1.*,
+                        org.apache.pdfbox.*,
+                        org.apache.commons.pool2;version=2.8.1,
+                        org.apache.directory.api.ldap.model.*,
+                        org.apache.directory.ldap.client.api.*
+                        </Export-Package>                   
+                        <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency> 
+                        <Embed-Transitive>true</Embed-Transitive>  
+                        <remoteOBR>true</remoteOBR>                                        
+                    </instructions>                    
+                </configuration>
+            </plugin>
+            <plugin>
+				<groupId>org.apache.sling</groupId>
+				<artifactId>sling-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>install-bundle</id>
+						<goals>
+							<goal>install</goal>
+						</goals>                        
+                        <configuration>
+                            <slingUrl>http://${aem.host}:${aem.port}/system/console</slingUrl>                                        
+                            <refreshPackages>true</refreshPackages>                             
+                        </configuration>
+					</execution>
+				</executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
