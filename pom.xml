@@ -42,11 +42,11 @@
         <artifactId>sns</artifactId>
         <version>2.16.13</version>
     </dependency>
-    <dependency>
-	<groupId>software.amazon.awssdk</groupId>
-	<artifactId>cognitoidentityprovider</artifactId>
-	<version>2.16.14</version>
-    </dependency> 
+	<dependency>
+		<groupId>software.amazon.awssdk</groupId>
+		<artifactId>cognitoidentityprovider</artifactId>
+		<version>2.16.14</version>
+	</dependency> 
     <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/sqs -->
     <dependency>
         <groupId>software.amazon.awssdk</groupId>
@@ -123,20 +123,20 @@
                 </configuration>
             </plugin>
             <plugin>
-		<groupId>org.apache.sling</groupId>
-		<artifactId>sling-maven-plugin</artifactId>
-		<executions>
-			<execution>
-				<id>install-bundle</id>
-				<goals>
-					<goal>install</goal>
-				</goals>                        
-                        	<configuration>
-                            		<slingUrl>http://${aem.host}:${aem.port}/system/console</slingUrl>                                        
-                            		<refreshPackages>true</refreshPackages>                             
-                        	</configuration>
-			</execution>
-		</executions>
+				<groupId>org.apache.sling</groupId>
+				<artifactId>sling-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>install-bundle</id>
+						<goals>
+							<goal>install</goal>
+						</goals>                        
+                        <configuration>
+                            <slingUrl>http://${aem.host}:${aem.port}/system/console</slingUrl>                                        
+                            <refreshPackages>true</refreshPackages>                             
+                        </configuration>
+					</execution>
+				</executions>
             </plugin>
         </plugins>
     </build>
