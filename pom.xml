@@ -72,6 +72,7 @@
                         org.apache.directory.api.ldap.model.*,
                         org.apache.directory.ldap.client.api.*
                         </Export-Package> -->
+                        <!-- Includes all except those available in AEM Instance/Felix console -->
                         <Export-Package>!org.slf4j,!javax.annotation.*,!org.apache.commons.codec.*,!org.apache.http.*,!com.fasterxml.jackson.core.*,!com.google.gson.*,*</Export-Package>
                         <Embed-Dependency>*</Embed-Dependency> 
                         <Embed-Transitive>true</Embed-Transitive>  
