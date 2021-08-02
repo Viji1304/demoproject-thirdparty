@@ -13,7 +13,7 @@
 
   <properties>
     <aem.host>localhost</aem.host>
-	<aem.port>8400</aem.port>
+	<aem.port>1304</aem.port>
     <sling.user>admin</sling.user>
 	<sling.password>admin</sling.password>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -37,63 +37,18 @@
     </distributionManagement>
 
   <dependencies>
-    <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>sns</artifactId>
-        <version>2.16.13</version>
-    </dependency>
-	<dependency>
-		<groupId>software.amazon.awssdk</groupId>
-		<artifactId>cognitoidentityprovider</artifactId>
-		<version>2.16.14</version>
-	</dependency> 
-    <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/sqs -->
-    <dependency>
-        <groupId>software.amazon.awssdk</groupId>
-        <artifactId>sqs</artifactId>
-        <version>2.16.29</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/software.amazon.awssdk/s3 -->
-	<dependency>
-    	<groupId>software.amazon.awssdk</groupId>
-    	<artifactId>s3</artifactId>
-    	<version>2.15.42</version>    
-	</dependency>
-    <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
-    <dependency>
-        <groupId>io.jsonwebtoken</groupId>
-        <artifactId>jjwt</artifactId>
-        <version>0.9.1</version>
-    </dependency>
-    <!-- Google Recaptcha -->
-    <dependency>
-        <groupId>com.google.cloud</groupId>
-        <artifactId>google-cloud-recaptchaenterprise</artifactId>
-        <version>1.0.10</version>
-	</dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox -->
-    <dependency>
-        <groupId>org.apache.pdfbox</groupId>
-        <artifactId>pdfbox</artifactId>
-        <version>2.0.23</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.directory.api/api-ldap-client-api -->
-    <dependency>
-        <groupId>org.apache.directory.api</groupId>
-        <artifactId>api-ldap-client-api</artifactId>
-        <version>2.0.1</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.directory.api</groupId>
-        <artifactId>api-all</artifactId>
-        <version>2.0.0.AM3</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-pool2 -->
-    <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-pool2</artifactId>
-        <version>2.8.1</version>
-    </dependency>  		
+            
+            <dependency>
+                <groupId>com.google.auth</groupId>
+                <artifactId>google-auth-library-oauth2-http</artifactId>
+                <version>0.23.0</version>
+            </dependency>            
+            <dependency>
+                <groupId>com.google.apis</groupId>
+                <artifactId>google-api-services-calendar</artifactId>
+                <version>v3-rev411-1.25.0</version>
+            </dependency>
+           
   </dependencies>
   
   <build>
@@ -105,7 +60,8 @@
                 <configuration>
                     <instructions>
                         <Import-Package>*;resolution:=optional</Import-Package>
-                        <Export-Package>software.amazon.awssdk.*,
+                        <!--<Export-Package>software.amazon.awssdk.*,   
+                        software.amazon.awssdk.services.cognitoidentityprovider.DefaultCognitoIdentityProviderClient,                                           
                         io.jsonwebtoken,
                         com.google.recaptchaenterprise.v1.*,
                         com.google.auth.*, 
@@ -115,8 +71,9 @@
                         org.apache.commons.pool2;version=2.8.1,
                         org.apache.directory.api.ldap.model.*,
                         org.apache.directory.ldap.client.api.*
-                        </Export-Package>                   
-                        <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency> 
+                        </Export-Package> -->
+                        <Export-Package>!org.slf4j,!javax.annotation.*,!org.apache.commons.codec.*,!org.apache.http.*,!com.fasterxml.jackson.core.*,!com.google.gson.*,*</Export-Package>
+                        <Embed-Dependency>*</Embed-Dependency> 
                         <Embed-Transitive>true</Embed-Transitive>  
                         <remoteOBR>true</remoteOBR>                                        
                     </instructions>                    
